@@ -1,0 +1,56 @@
+name: hoy_no_circulas
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.2 <4.0.0'
+
+dependencies:
+  animate_do: ^3.0.2
+  calendar_date_picker2: ^0.5.3
+  dio: ^5.2.0+1
+  dotted_border: ^2.0.0+3
+  flutter:
+    sdk: flutter
+  flutter_dotenv: ^5.1.0
+  flutter_polyline_points: ^1.0.0
+  flutter_riverpod: ^2.3.6
+  font_awesome_flutter: ^10.5.0
+  formz: ^0.6.0
+  geolocator: ^10.0.1
+  go_router: ^7.1.1
+  google_maps_flutter: ^2.5.0
+  permission_handler: ^10.4.3
+  shared_preferences: ^2.1.1
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/loaders/
+    - assets/images/
+    - .env
+
+  #const acentos = 'á, é, í, ó, ú ñ';
+  fonts:
+    - family: QuicksandBold
+      fonts:
+        - asset: assets/fonts/Quicksand-Bold.ttf
+    - family: QuicksandLight
+      fonts:
+        - asset: assets/fonts/Quicksand-Light.ttf
+    - family: QuicksandMedium
+      fonts:
+        - asset: assets/fonts/Quicksand-Medium.ttf
+    - family: QuicksandRegular
+      fonts:
+        - asset: assets/fonts/Quicksand-Regular.ttf
+    - family: QuicksandSemiBold
+      fonts:
+        - asset: assets/fonts/Quicksand-SemiBold.ttf
