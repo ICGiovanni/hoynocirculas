@@ -8,11 +8,11 @@ import 'package:hoy_no_circulas/features/vehicule/presentation/screens/screens.d
 import 'app_router_notifier.dart';
 
 final goRouterProvider = Provider((ref) {
-  //final goRouterNotifier = ref.read(goRouterNotifierProvider);
+  final goRouterNotifier = ref.read(goRouterNotifierProvider);
 
   return GoRouter(
     initialLocation: '/splash',
-    // refreshListenable: goRouterNotifier,
+    refreshListenable: goRouterNotifier,
     routes: [
       ///* Auth Routes
       GoRoute(
@@ -41,37 +41,32 @@ final goRouterProvider = Provider((ref) {
       ),
     ],
     redirect: (context, state) {
-      // final isGoingTo = state.location;
-      // final authStatus = goRouterNotifier.authStatus;
-      // final isAllGrantedStatus = goRouterNotifier.isAllGrantedStatus;
-      // final isGpsEnabled = goRouterNotifier.isGpsEnabled;
-      // final isGpsPermissionGranted = goRouterNotifier.isGpsPermissionGranted;
+      final isGoingTo = state.location;
+      final authStatus = goRouterNotifier.authStatus;
 
-      // if (isGoingTo == '/splash' && authStatus == AuthStatus.checking) {
-      //   return null;
-      // }
+      print(isGoingTo);
+      print(authStatus);
 
-      // if (authStatus == AuthStatus.notAuthenticate) {
-      //   if (isGoingTo == '/login' || isGoingTo == '/register') {
-      //     return null;
-      //   }
+      if (isGoingTo == '/splash' && authStatus == AuthStatus.checking) {
+        return null;
+      }
 
-      //   return '/login';
-      // }
+      if (authStatus == AuthStatus.notAuthenticate) {
+        if (isGoingTo == '/login' || isGoingTo == '/register') {
+          return null;
+        }
+        return '/login';
+      }
 
-      // if (authStatus == AuthStatus.authenticated) {
-      //   if (isGoingTo == '/login' ||
-      //       isGoingTo == '/register' ||
-      //       isGoingTo == '/splash') {
-      //     if (isAllGrantedStatus) {
-      //       return '/';
-      //     } else if (!isGpsEnabled || !isGpsPermissionGranted) {
-      //       return '/gps-access';
-      //     }
-      //   }
-      // }
+      if (authStatus == AuthStatus.authenticated) {
+        if (isGoingTo == '/login' ||
+            isGoingTo == '/register' ||
+            isGoingTo == '/splash') {
+          return '/';
+        }
+      }
 
-      // return null;
+      return null;
     },
   );
 });

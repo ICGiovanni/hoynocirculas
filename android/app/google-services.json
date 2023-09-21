@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1045056283233",
+    "project_id": "hoy-no-circulas-dev",
+    "storage_bucket": "hoy-no-circulas-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1045056283233:android:115f07930bc0ec3f4e0020",
+        "android_client_info": {
+          "package_name": "com.example.hoy_no_circulas"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBs64Vrhbn26ZWr5Bal_qZk2ylBMcwu0SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

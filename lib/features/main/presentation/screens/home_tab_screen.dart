@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hoy_no_circulas/features/auth/presentation/providers/providers.dart';
 import 'package:hoy_no_circulas/features/main/presentation/screens/screens.dart';
 import 'package:hoy_no_circulas/features/main/presentation/widgets/widgets.dart';
 import 'package:hoy_no_circulas/features/shared/widgets/widgets.dart';
@@ -24,9 +26,20 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Bienvenido, Jose',
-                    style: Theme.of(context).textTheme.titleMedium,
+                  child: Consumer(
+                    builder: (context, ref, child) {
+                      final userName =
+                          ref.read(authProvider).user?.fullName.split(' ')[0];
+                      return Text(
+                        'Bienvenid@, $userName',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontSize: 26),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      );
+                    },
                   ),
                 ),
               ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hoy_no_circulas/features/auth/presentation/providers/providers.dart';
 import 'package:hoy_no_circulas/features/main/presentation/screens/screens.dart';
 import 'package:hoy_no_circulas/features/shared/widgets/widgets.dart';
 import 'package:hoy_no_circulas/features/vehicule/presentation/screens/screens.dart';
@@ -93,15 +95,19 @@ class SettingsTabScreen extends StatelessWidget {
                         },
                         child: const Icon(Icons.arrow_forward_ios)),
                   ),
-                  GestureDetector(
-                    onTap: () => context.go('/login'),
-                    child: const ListTile(
-                      leading: Icon(
-                        Icons.output,
-                        color: Colors.red,
-                      ),
-                      title: Text('Cerrar sesión', style: fontBold),
-                    ),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      return GestureDetector(
+                        onTap: () => ref.read(authProvider.notifier).logOut(),
+                        child: const ListTile(
+                          leading: Icon(
+                            Icons.output,
+                            color: Colors.red,
+                          ),
+                          title: Text('Cerrar sesión', style: fontBold),
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 10),
                   Padding(

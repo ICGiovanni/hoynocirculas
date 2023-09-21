@@ -117,11 +117,9 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                               ? null
                               : () {
                                   FocusScope.of(context).unfocus();
-                                  // ref
-                                  //     .read(loginFormProvider.notifier)
-                                  //     .onFormSubmit();
-
-                                  context.go('/');
+                                  ref
+                                      .read(loginFormProvider.notifier)
+                                      .onFormSubmit();
                                 },
                         ),
                       ),

@@ -19,4 +19,10 @@ class Environment {
 
   static String countryCodeLongitud = dotenv.env['COUNTRY_CODE_LONGITUD'] ??
       'No esta configurado el COUNTRY_CODE_LONGITUD';
+
+  static String firebaseApiUrl = dotenv.env['FIREBASE_API_URL'] ??
+      'No esta configurado el FIREBASE_API_URL';
+
+  static String firebaseRestUrl = dotenv.env['FIREBASE_REST_URL'] ??
+      'No esta configurado el FIREBASE_REST_URL';
 }

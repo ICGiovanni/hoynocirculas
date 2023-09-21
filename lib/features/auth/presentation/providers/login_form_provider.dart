@@ -25,7 +25,7 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
 
     state = state.copyWith(isPosting: true);
 
-    //await login(state.email.value, state.password.value);
+    await login(state.email.value, state.password.value);
 
     state = state.copyWith(isPosting: false);
   }

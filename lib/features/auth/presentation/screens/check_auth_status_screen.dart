@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class CheckAuthStatusScreen extends StatefulWidget {
   const CheckAuthStatusScreen({Key? key}) : super(key: key);
@@ -9,14 +8,6 @@ class CheckAuthStatusScreen extends StatefulWidget {
 }
 
 class _CheckAuthStatusScreenState extends State<CheckAuthStatusScreen> {
-  @override
-  void initState() {
-    Future.delayed(const Duration(milliseconds: 2000), () {
-      context.go('/login');
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

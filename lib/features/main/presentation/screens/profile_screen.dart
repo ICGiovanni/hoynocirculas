@@ -1,12 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hoy_no_circulas/features/auth/presentation/providers/providers.dart';
+import 'package:hoy_no_circulas/features/main/presentation/providers/providers.dart';
 import 'package:hoy_no_circulas/features/main/presentation/screens/screens.dart';
 import 'package:hoy_no_circulas/features/shared/widgets/widgets.dart';
+import 'package:hoy_no_circulas/helpers.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
+  createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+  @override
   Widget build(BuildContext context) {
+    final user = ref.read(authProvider).user;
+    final profileForm = ref.watch(profileFormProvider);
+
+    ref.listen(
+      profileFormProvider,
+      (previous, next) {
+        if (next.errorMessage.isNotEmpty) {
+          Helpers.showSnackbar(context, next.errorMessage, false);
+        }
+        if (next.success) {
+          Helpers.showSnackbar(
+              context, 'Se han realizado los cambios exitosamente.');
+        }
+
+        return;
+      },
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(title: const Text('Mi Perfil')),
@@ -17,19 +44,24 @@ class ProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              const CustomTextFormField(
-                initialValue: 'Alonso Gómez Pérez',
+              CustomTextFormField(
+                initialValue: '${user?.fullName}',
                 label: 'Nombre completo',
-                keyboardType: TextInputType.emailAddress,
-                onChanged: null,
+                onChanged:
+                    ref.read(profileFormProvider.notifier).onFullNameChange,
+                errorMessage: profileForm.isFormPosted
+                    ? profileForm.fullName.errorMessage
+                    : null,
               ),
               const SizedBox(height: 20),
-              const CustomTextFormField(
-                initialValue: 'alfonso@gmail.com',
+              CustomTextFormField(
+                initialValue: '${user?.email}',
                 label: 'Correo electrónico',
                 keyboardType: TextInputType.emailAddress,
-                onChanged: null,
-                errorMessage: null,
+                onChanged: ref.read(profileFormProvider.notifier).onEmailChange,
+                errorMessage: profileForm.isFormPosted
+                    ? profileForm.email.errorMessage
+                    : null,
               ),
               const SizedBox(height: 20),
               const Text(
@@ -43,11 +75,16 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
-                height: 60,
+                height: 50,
                 child: CustomFilledButton(
                   text: 'Editar',
                   buttonColor: Theme.of(context).primaryColor,
-                  onPressed: () {},
+                  onPressed: profileForm.isPosting
+                      ? null
+                      : () {
+                          FocusScope.of(context).unfocus();
+                          ref.read(profileFormProvider.notifier).onFormSubmit();
+                        },
                 ),
               ),
               const SizedBox(height: 40),

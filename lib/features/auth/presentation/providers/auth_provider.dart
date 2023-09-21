@@ -6,7 +6,7 @@ import 'package:hoy_no_circulas/features/shared/services/key_value_storage_servi
 import 'package:hoy_no_circulas/features/shared/services/key_values_storage_service_impl.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
-  final authRepository = AuthRepositoryImpl(AuthDataSourceImpl());
+  final authRepository = AuthRepositoryImpl(AuthDataSourceFirebaseImpl());
 
   final keyValueStorageService = KeyValueStorageServiceImpl();
 
@@ -28,14 +28,14 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> loginUser(String email, String password) async {
     await Future.delayed(const Duration(milliseconds: 500));
 
-    // try {
-    //   final user = await authRepository.login(email, password);
-    //   _setLoggedUser(user);
-    // } on CustomError catch (e) {
-    //   logOut(e.message);
-    // } catch (e) {
-    //   logOut('Error no controlado');
-    // }
+    try {
+      final user = await authRepository.login(email, password);
+      _setLoggedUser(user);
+    } on CustomError catch (e) {
+      logOut(e.message);
+    } catch (e) {
+      logOut('Error no controlado');
+    }
   }
 
   Future registerUser(String email, String password, String fullName) async {
@@ -55,8 +55,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
     if (token == null) return logOut();
 
     try {
-      // final user = await authRepository.checkAuthStatus(token);
-      // _setLoggedUser(user);
+      final user = await authRepository.checkAuthStatus(token);
+      _setLoggedUser(user);
     } catch (e) {
       logOut();
     }
